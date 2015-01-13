@@ -3,3 +3,4 @@
 *.hex
 *.elf
 .metadata
+/src_mcu/RemoteSystemsTempFiles/.project
