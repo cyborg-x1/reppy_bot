@@ -46,9 +46,25 @@ void adc_init()
 	//Prescaler is 16 according to the arduino clock
 	ADCSRA|=_BV(ADPS2);
 	ADCSRA&=~(_BV(ADPS1) | _BV(ADPS0));
+
+	//Start current channel
+	ADCSRA|=_BV(ADSC);
 }
 
 ISR(ADC_vect)
 {
-	uart_sendByte('~');
+	static uint8_t current_channel=0;
+
+	global.adc_channel_value[current_channel]=ADC;
+
+	if(current_channel < 7)
+	{
+		current_channel++;
+	}
+	else
+	{
+		current_channel=0;
+	}
+	adc_multiplexer(current_channel);
+	ADCSRA|=_BV(ADSC);
 }

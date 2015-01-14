@@ -1,0 +1,3 @@
+[submodule "SerSyncProto"]
+	path = SerSyncProto
+	url = https://github.com/cyborg-x1/SerSyncProto.git

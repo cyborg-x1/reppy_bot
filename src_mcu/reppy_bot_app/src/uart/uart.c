@@ -18,6 +18,7 @@
 
 
 #include "uart.h"
+#include "../SerSyncProto/sersyncproto.h"
 
 void uart_sendByte(uint8_t byte)
 {
@@ -46,6 +47,23 @@ void uart_init(void)
 
 ISR(USART_RX_vect)
 {
+	static const uint8_t cmds[]=AVR_CMD_ARRAY_INIT;
+	static const uint8_t payload_len[]=AVR_PAYLOAD_LEN_ARRAY_INIT;
+	static const uint8_t header[]=HEADER_ARRAY_INIT;
+	static uint8_t payload_buffer[2];
+	INIT_SERSYNCPROTO_DATA(data,cmds,payload_len,header,payload_buffer);
+
+
 	uint8_t cur_byte=UDR0;
-	uart_sendByte(cur_byte);
+	if(sersyncproto(&data,cur_byte))
+	{
+		switch (SERSYNCPROTO_GET_CUR_CMD(data))
+		{
+			case REPPY_AVR_GET_ADC0:
+				uart_sendByte('~');//TODO remove just for testing
+				break;
+			default:
+				break;
+		}
+	}
 }

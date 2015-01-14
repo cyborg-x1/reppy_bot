@@ -3,4 +3,5 @@
 *.hex
 *.elf
 .metadata
-/src_mcu/RemoteSystemsTempFiles/.project
+/src_mcu/RemoteSystemsTempFiles/*
+/src_mcu/reppy_bot_app/Debug/*
