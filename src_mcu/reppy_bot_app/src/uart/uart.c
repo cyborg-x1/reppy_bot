@@ -18,7 +18,7 @@
 
 
 #include "uart.h"
-#include "../SerSyncProto/sersyncproto.h"
+#include <sersyncproto.h>
 
 void uart_sendByte(uint8_t byte)
 {

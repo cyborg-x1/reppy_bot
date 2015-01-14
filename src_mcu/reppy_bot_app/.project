@@ -24,4 +24,11 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 		<nature>de.innot.avreclipse.core.avrnature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>SerSyncProto</name>
+			<type>2</type>
+			<locationURI>PARENT-1-WORKSPACE_LOC/SerSyncProto</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
