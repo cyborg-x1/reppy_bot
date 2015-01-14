@@ -37,6 +37,7 @@
 								<option id="de.innot.avreclipse.compiler.option.optimize.598456927" name="Optimization Level" superClass="de.innot.avreclipse.compiler.option.optimize"/>
 								<option id="de.innot.avreclipse.compiler.option.incpath.1568337409" name="Include Paths (-I)" superClass="de.innot.avreclipse.compiler.option.incpath" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../../SerSyncProto&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../../shared&quot;"/>
 								</option>
 								<inputType id="de.innot.avreclipse.compiler.winavr.input.802398363" name="C Source Files" superClass="de.innot.avreclipse.compiler.winavr.input"/>
 							</tool>
