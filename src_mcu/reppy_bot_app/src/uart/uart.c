@@ -20,6 +20,7 @@
 #include "uart.h"
 #include <sersyncproto.h>
 
+
 void uart_sendByte(uint8_t byte)
 {
 	//Wait for empty output buffer
@@ -55,12 +56,23 @@ ISR(USART_RX_vect)
 
 
 	uint8_t cur_byte=UDR0;
-	if(sersyncproto(&data,cur_byte))
+	if(sersyncproto_rec(&data,cur_byte))
 	{
 		switch (SERSYNCPROTO_GET_CUR_CMD(data))
 		{
 			case REPPY_AVR_GET_ADC0:
-				uart_sendByte('~');//TODO remove just for testing
+			case REPPY_AVR_GET_ADC1:
+			case REPPY_AVR_GET_ADC2:
+			case REPPY_AVR_GET_ADC3:
+			case REPPY_AVR_GET_ADC4:
+			case REPPY_AVR_GET_ADC5:
+			case REPPY_AVR_GET_ADC6:
+			case REPPY_AVR_GET_ADC7:
+			{
+				uint8_t adc_no=SERSYNCPROTO_GET_CUR_CMD(data)-REPPY_AVR_GET_ADC0;
+				uint16_t adcval=(global.adc_channel_value[adc_no]);
+				sersyncproto_send(&data, REPPY_ROS_REC_ADC0+adc_no,  (uint8_t*)((void *)(&(adcval))), uart_sendByte);//TODO remove just for testing
+			}
 				break;
 			default:
 				break;
