@@ -2,6 +2,7 @@
 #include "ros/ros.h"
 #include "geometry_msgs/Twist.h"
 #include "std_msgs/UInt8.h"
+#include "protocol_definition.h"
 
 void velocityCallback(const geometry_msgs::Twist::ConstPtr& msg)
 {
