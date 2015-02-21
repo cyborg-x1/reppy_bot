@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:xacro="http://ros.org/wiki/xacro">
+	
+<xacro:include filename="$(find reppy_bot_urdf)/defs/consts.xacro"/>
+<xacro:include filename="$(find reppy_bot_urdf)/defs/diff_drive_setup.xacro"/>
+       	       	
+<xacro:diff_drive_setup 
+	 base_frame="base_link"
+	 robot_namespace=""
+	 wheel_base_center_x="0"
+     wheel_separation ="0.070"
+     wheel_diameter="0.004" 
+     wheel_torque="5"
+	 wheel_acceleration="1"
+     cmd_topic="/cmd_vel"
+	 odom_topic="odom"
+     odom_frame="odom"
+	 ros_plugin_always_on="true"
+	 ros_plugin_controller_name="diff_drv0"
+     ros_plugin_update_rate="100"
+	 ros_plugin_odom_source="encoder"
+	 ros_plugin_publish_wheel_joint_state="true"
+	 ros_plugin_publish_wheel_tf="true"
+	 ros_plugin_publish_tf="true" />   
+      	
+</robot>
+	
