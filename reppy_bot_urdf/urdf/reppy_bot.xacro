@@ -3,19 +3,96 @@
 <robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
        xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
        xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
-       xmlns:xacro="http://ros.org/wiki/xacro">
+       xmlns:xacro="http://ros.org/wiki/xacro" name="reppy_bot">
 	
-<xacro:include filename="$(find reppy_bot_urdf)/defs/consts.xacro"/>
-<xacro:include filename="$(find reppy_bot_urdf)/defs/diff_drive_setup.xacro"/>
-       	       	
+<xacro:include filename="$(find reppy_bot_urdf)/urdf/consts.xacro"/>
+<xacro:include filename="$(find reppy_bot_urdf)/urdf/diff_drive_setup.xacro"/>
+    
+<!-- Simple Robot Settings -->
+
+	<xacro:property name="wheel_diameter" value="0.05"/>  
+	<xacro:property name="wheel_width" value="0.01"/>  
+	<xacro:property name="wheel_base_center_x" value="-0.02"/>  
+	<xacro:property name="wheel_separation" value="0.10"/>  
+
+	<xacro:property name="chassis_width"  value="0.07"/>  
+	<xacro:property name="chassis_len"    value="0.09"/>
+	<xacro:property name="chassis_height" value="0.04"/>
+    <xacro:property name="chassis_floor_clearance" value="0.02"/>
+	
+    <xacro:property name="caster_collision_x" value="0.02"/>
+    	
+    	
+<link name="base_link"/>
+
+<link name="chassis">
+	
+	<visual>
+		<geometry>
+			<box size="${chassis_len} ${chassis_width} ${chassis_height}" />
+		</geometry>
+	</visual>
+	<collision>
+		<geometry>
+			<box size="${chassis_len} ${chassis_width} ${chassis_height}" />
+		</geometry>
+	</collision>
+	<material>
+		<color rgba="0.0 0.0 1.0 1.0"/>
+	</material>
+</link>
+<gazebo reference="chassis">
+	<material name="Gazebo/Blue"/>
+</gazebo>
+
+<joint name="base_chassis_joint" type="fixed">
+	<parent link="base_link" />
+	<child link="chassis" />
+	<origin xyz="0 0 ${chassis_floor_clearance+chassis_height/2}" rpy="0 0 0" />
+</joint>
+
+
+
+<link name="caster_collision">
+	<visual>
+		<geometry>
+			<sphere radius="${chassis_floor_clearance}" />
+		</geometry>
+	</visual>
+	<collision>
+		<geometry>
+			<sphere radius="${chassis_floor_clearance}" />
+		</geometry>
+	</collision>
+	<material>
+		<color rgba="0.0 0.0 1.0 1.0"/>
+	</material>
+</link>
+<gazebo reference="caster_collision">
+	<material name="Gazebo/FlatBlack"/>
+</gazebo>
+<joint name="base_caster_col_joint" type="fixed">
+	<parent link="base_link" />
+	<child link="caster_collision" />
+	<origin xyz="${caster_collision_x} 0 ${chassis_floor_clearance}" rpy="0 0 0" />
+</joint>
+
 <xacro:diff_drive_setup 
 	 base_frame="base_link"
 	 robot_namespace=""
-	 wheel_base_center_x="0"
-     wheel_separation ="0.070"
-     wheel_diameter="0.004" 
+	 wheel_base_center_x="-0.02"
+     wheel_separation ="${chassis_width}"
+     wheel_diameter="${wheel_diameter}"
+	 wheel_width="${wheel_width}"
      wheel_torque="5"
 	 wheel_acceleration="1"
+	 wheel_joint_limit_vel="2"
+	 wheel_joint_limit_effort="2"
+	 wheel_friction1="100000"
+     wheel_friction2="1000"
+	 wheel_contact_damping="10"
+     wheel_contact_stiffness="10"
+	 wheel_mass="3"
      cmd_topic="/cmd_vel"
 	 odom_topic="odom"
      odom_frame="odom"
