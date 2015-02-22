@@ -17,7 +17,8 @@
 
 
 
-#include "uart.h"
+#include "../../../../../reppy_bot/src_mcu/reppy_bot_app/src/uart/uart.h"
+
 #include <sersyncproto.h>
 
 

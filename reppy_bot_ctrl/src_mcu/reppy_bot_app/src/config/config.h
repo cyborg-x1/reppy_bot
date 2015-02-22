@@ -14,7 +14,8 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <inttypes.h>
-#include "../globals/globals.h"
+
 #include <protocol_definition.h>
+#include "../../../../../reppy_bot/src_mcu/reppy_bot_app/src/globals/globals.h"
 
 #endif /* CONFIG_H_ */

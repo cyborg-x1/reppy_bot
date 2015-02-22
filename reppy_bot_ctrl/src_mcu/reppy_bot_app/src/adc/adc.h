@@ -8,7 +8,7 @@
 #ifndef ADC_H_
 #define ADC_H_
 
-#include "../config/config.h"
+#include "../../../../../reppy_bot/src_mcu/reppy_bot_app/src/config/config.h"
 
 /**
  * initializes the ADC setup

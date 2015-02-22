@@ -5,5 +5,5 @@
  *      Author: Christian Holl
  */
 
-#include "globals.h"
+#include "../../../../../reppy_bot/src_mcu/reppy_bot_app/src/globals/globals.h"
 global_t global;
