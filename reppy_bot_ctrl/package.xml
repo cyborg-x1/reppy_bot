@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>reppy_bot</name>
+  <name>reppy_bot_ctrl</name>
   <version>0.0.0</version>
   <description>The reppy_bot package</description>
 
