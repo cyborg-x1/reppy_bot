@@ -130,12 +130,24 @@
 					 parent_link="chassis"
 					 x="0" y="0" z="0"
 					 frame_id="world"
-					 topic_name="fix"
-					 velocity_topic_name="fix_vel"
+					 topic_name="/fix"
+					 velocity_topic_name="/fix_vel"
 					 reference_latitude="49"
 					 reference_longitude="8"
 					 reference_heading="0"
 					 reference_altitude="0"/>
+
+<xacro:imu 	id="0"
+			topic_name="/imu"
+			parent_link="chassis"
+			x="${wheel_base_center_x}"
+			y="0"
+			z="0"
+			roll="0"
+			pitch="0"
+			yaw="0"
+			gaussian_noise="2.89e-08"
+			/>
 
 </robot>
 											

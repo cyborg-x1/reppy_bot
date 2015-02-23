@@ -1,4 +1,4 @@
 <launch>
-	  <param name="robot_description" command="$(find xacro)/xacro.py $(find reppy_bot_urdf)/urdf/reppy_bot.xacro" />
+	  <param name="robot_description" command="$(find xacro)/xacro.py $(find reppy_bot_urdf)/urdf/test_bot.xacro" />
 	  <!--<param name="robot_description_semantic" textfile="$(find reppy_bot_description)/config/reppy_bot.srdf" />-->
 </launch>

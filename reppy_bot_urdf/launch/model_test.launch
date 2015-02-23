@@ -1,5 +1,5 @@
 <launch>
-	<include file="$(find reppy_bot_urdf)/launch/reppy_bot_description.xml" />
+	<include file="$(find reppy_bot_urdf)/launch/test_bot_description.xml" />
 	
   	<node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher">
 
