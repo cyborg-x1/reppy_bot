@@ -7,7 +7,9 @@
 	
 <xacro:include filename="$(find reppy_bot_urdf)/urdf/consts.xacro"/>
 <xacro:include filename="$(find reppy_bot_urdf)/urdf/diff_drive_setup.xacro"/>
-    
+<xacro:include filename="$(find reppy_bot_urdf)/urdf/sensors.xacro"/> 
+	
+	 
 <!-- Simple Robot Settings -->
 <xacro:property name="chassis_height" value="0.15"/>
 <xacro:property name="chassis_width"  value="${chassis_height*1.618}"/>  
@@ -20,7 +22,6 @@
 <xacro:property name="caster_collision_x" value="${chassis_len/(1.618*2)}"/>
 
 
-	    	
 <link name="base_link"/>
 <link name="chassis">
 	
@@ -29,7 +30,7 @@
 			<box size="${chassis_len} ${chassis_width} ${chassis_height}" />
 		</geometry>
 		<material name="Green">
-			<color rgba="0 1 0 1"/>
+			<color rgba="0 1 0 0.5"/>
 		</material>
 	</visual>
 	<collision>
@@ -121,6 +122,20 @@
 	 ros_plugin_odom_source="encoder"
 	 ros_plugin_publish_wheel_joint_state="true"
 	 ros_plugin_publish_wheel_tf="true"
-	 ros_plugin_publish_tf="true" />      	
-</robot>
+	 ros_plugin_publish_tf="1" />      	
 	
+
+
+<xacro:gps_receiver  id="0"
+					 parent_link="chassis"
+					 x="0" y="0" z="0"
+					 frame_id="world"
+					 topic_name="fix"
+					 velocity_topic_name="fix_vel"
+					 reference_latitude="49"
+					 reference_longitude="8"
+					 reference_heading="0"
+					 reference_altitude="0"/>
+
+</robot>
+											
