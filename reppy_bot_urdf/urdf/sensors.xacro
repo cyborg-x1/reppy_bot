@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+
+<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:xacro="http://ros.org/wiki/xacro"
+> 	
+	
+<xacro:macro name="gps_receiver" params="id
+	 									 frame_id
+										 topic_name
+										 parent_link
+										 x y z
+										 velocity_topic_name
+										 reference_latitude
+										 reference_longitude
+										 reference_heading
+										 reference_altitude
+										">	
+	
+	<link name="gps_receiver_link${id}">	
+		<visual>
+			<geometry>
+				<box size="0.04 0.04 0.04" />
+			</geometry>
+			<material name="Blue">
+				<color rgba="0 0 1 1"/>
+			</material>
+		</visual>
+		<collision>
+			<geometry>
+				<box size="0.04 0.04 0.04" />
+			</geometry>
+		</collision>
+		<inertial>
+	            <mass value="1.0"/>
+	            <origin xyz="0.0 0.0 0.0"/>
+	            <inertia ixx="0.1" 
+	                     iyy="0.1" 
+	                     izz="0.1"
+	  	            	 iyz="0.0"
+			             ixy="0.0" 
+			             ixz="0.0"/>
+	    </inertial>
+	</link>
+	
+	<joint name="gps_receiver_joint${id}" type="fixed">
+		<parent link="${parent_link}" />
+		<child link="gps_receiver_link${id}" />
+		<origin xyz="${x} ${y} ${z}" rpy="0 0 0" />
+	</joint>
+	
+<gazebo>
+	<plugin name="gps_controller${id}" 
+		    filename="libhector_gazebo_ros_gps.so">
+		<bodyName>gps_receiver_link${id}</bodyName>
+		<frameId>${frame_id}</frameId>
+		<topicName>${topic_name}</topicName>
+		<velocityTopicName>${velocity_topic_name}</velocityTopicName>
+		<referenceLatitude>${reference_latitude}</referenceLatitude>
+		<referenceLongitude>${reference_longitude}</referenceLongitude>
+		<referenceHeading>${reference_heading}</referenceHeading>
+		<referenceAltitude>${reference_altitude}</referenceAltitude>
+	</plugin>
+</gazebo>  
+</xacro:macro>
+	
+
+
+	<xacro:macro name="test_sensors">	    
+	  <gazebo>
+	  <!-- IMU -->
+	  <plugin name="imu_controller" filename="libgazebo_ros_imu.so">
+			<bodyName>base_link</bodyName>
+			<topicName>imu</topicName>
+			<gaussianNoise>2.89e-08</gaussianNoise>
+			<xyzOffsets>-0.086632 0 0.12</xyzOffsets>
+			<rpyOffsets>0 0 0</rpyOffsets>
+	  </plugin>
+	
+	  <!-- GPS -->
+	  <plugin name="gps_controller" filename="libhector_gazebo_ros_gps.so">
+	  	<bodyName>base_link</bodyName>
+	  	<frameId>world</frameId>
+	  	<topicName>fix</topicName>
+	  	<velocityTopicName>fix_velocity</velocityTopicName>
+	  	<referenceLatitude>49.9</referenceLatitude>
+	  	<referenceLongitude>8.9</referenceLongitude>
+	  	<referenceHeading>0</referenceHeading>
+	  	<referenceAltitude>0</referenceAltitude>
+	  </plugin>
+	
+	  </gazebo>  
+	</xacro:macro>
+	
+</robot>
