@@ -4,11 +4,12 @@
        xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
        xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
        xmlns:xacro="http://ros.org/wiki/xacro"
-> 	
-	
+> 
+		
+<!--
+	GPS  
+-->
 <xacro:macro name="gps_receiver" 
-	
-
 params= "id
 		 frame_id
 		 topic_name
@@ -50,42 +51,5 @@ params= "id
 		<referenceAltitude>${reference_altitude}</referenceAltitude>
 	</plugin>
 </gazebo>  
-</xacro:macro>
-	
-<xacro:macro name="imu" params="id
-								topic_name
-								parent_link
-								x y z roll pitch yaw
-								gaussian_noise
-								">	
-	
-<link name="imu_link${id}">	
-	<visual>
-		<geometry>
-			<box size="0.02 0.02 0.02" />
-		</geometry>
-		<material name="Yellow">
-			<color rgba="1 1 0 1"/>
-		</material>
-	</visual>
-</link>
-
-<joint name="imu_joint${id}" type="fixed">
-	<parent link="${parent_link}" />
-	<child link="imu_link${id}" />
-	<origin xyz="${x} ${y} ${z}" rpy="${roll} ${pitch} ${yaw}" />
-</joint>
-	
-<gazebo>
-	  <plugin name="imu_controller" filename="libgazebo_ros_imu.so">
-			<bodyName>imu_link${id}</bodyName>
-			<topicName>${topic_name}</topicName>
-			<gaussianNoise>${gaussian_noise}</gaussianNoise>
-			<xyzOffsets>0 0 0</xyzOffsets>
-			<rpyOffsets>0 0 0</rpyOffsets>
-	  </plugin>
-</gazebo>
-</xacro:macro>
-
-	
+</xacro:macro>	
 </robot>

@@ -7,10 +7,13 @@
 	
 <xacro:include filename="$(find reppy_bot_urdf)/urdf/consts.xacro"/>
 <xacro:include filename="$(find reppy_bot_urdf)/urdf/diff_drive_setup.xacro"/>
-<xacro:include filename="$(find reppy_bot_urdf)/urdf/sensors.xacro"/> 
+<xacro:include filename="$(find reppy_bot_urdf)/urdf/gps.xacro"/> 	
+<xacro:include filename="$(find reppy_bot_urdf)/urdf/imu.xacro"/> 
+<xacro:include filename="$(find reppy_bot_urdf)/urdf/rplidar.xacro"/> 
+<xacro:include filename="$(find reppy_bot_urdf)/urdf/camera.xacro"/> 
 	
-	 
-<!-- Simple Robot Settings -->
+	
+	<!-- Simple Robot Settings -->
 <xacro:property name="chassis_height" value="0.15"/>
 <xacro:property name="chassis_width"  value="${chassis_height*1.618}"/>  
 <xacro:property name="chassis_len"    value="${chassis_width+chassis_height}"/>
@@ -149,5 +152,40 @@
 			gaussian_noise="2.89e-08"
 			/>
 
+<xacro:rplidar id="0"
+		topic_name="/laser/scan"
+		frame_name="laser"
+		parent_link="chassis"
+		x="0" y="0" z="${chassis_height/2}" roll="0" pitch="0" yaw="0"
+		update_rate="5.5"
+		visualize="false"
+/>	
+
+<xacro:cam
+		id="0"
+		parent_link="chassis"
+		x="${chassis_len}" y="0" z="0" roll="0" pitch="-0.01" yaw="${const_pi}"
+		always_on="true"
+		topic_video_name="camera0"
+		topic_camera_info="camera0_info"
+		frame_name="camera0"
+		image_width="640"
+		image_height="480"
+		image_format="R8G8B8"
+		clip_near="0.02"
+		clip_far="300"
+		noise_type="gausian"
+		noise_mean="0.0"
+		noise_std_dev="0.007"
+		fov="0.873"
+		hack_baseline="0.07"
+		dist_K1="0.0"
+		dist_K2="0.0"
+		dist_K3="0.0"
+		dist_T1="0.0"
+		dist_T2="0.0"
+		update_rate="30"
+        />
+				
 </robot>
 											
