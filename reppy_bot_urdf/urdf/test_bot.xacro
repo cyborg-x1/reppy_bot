@@ -22,7 +22,7 @@
 <xacro:property name="wheel_width"             value="${chassis_width/(16.18)}"        />  
 <xacro:property name="wheel_base_center_x"     value="${chassis_len/(-1.618*3)}"       />  
 <xacro:property name="caster_collision_x"      value="${chassis_len/(1.618*2)}"        />
-
+<xacro:property name="robot_namespace" value="/" />
 
 <link name="base_link" />
 <link name="chassis">
@@ -101,7 +101,7 @@
 
 <xacro:diff_drive_setup 
 	 base_frame="base_link"
-	 robot_namespace=""
+	 robot_namespace="${robot_namespace}"
 	 wheel_base_center_x="${wheel_base_center_x}"
      wheel_separation ="${chassis_width}"
      wheel_diameter="${wheel_diameter}"
@@ -130,6 +130,7 @@
 
 <xacro:gps_receiver  
 		id="0"
+	 	robot_namespace="${robot_namespace}"
 		parent_link="chassis"
 		x="0" y="0" z="0"
 		frame_id="world"
@@ -142,6 +143,7 @@
 
 <xacro:imu 	
 		id="0"
+	 	robot_namespace=""
 		topic_name="/imu"
 		parent_link="chassis"
 		x="${wheel_base_center_x}"
@@ -154,6 +156,7 @@
 		/>
 
 <xacro:rplidar id="0"
+	 	robot_namespace="${robot_namespace}"
 		topic_name="/laser/scan"
 		frame_name="laser"
 		parent_link="chassis"
@@ -168,6 +171,7 @@
 
 <xacro:cam
 		id               ="0"
+	 	robot_namespace  ="${robot_namespace}"
 		parent_link      ="chassis"  
 		x                ="${chassis_len/2}" 
 	    y                ="0" 

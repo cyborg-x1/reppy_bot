@@ -7,6 +7,7 @@
 >
 <xacro:include filename="$(find reppy_bot_urdf)/urdf/consts.xacro"/>	
 <xacro:macro name="rplidar" params="id
+								robot_namespace
 								topic_name
 								frame_name
 								parent_link
@@ -78,7 +79,8 @@
         </noise>
       </ray>
       <plugin name="gazebo_ros_head_rplidar${id}_controller" filename="libgazebo_ros_gpu_laser.so">
-        <topicName>${topic_name}</topicName>
+        <robotNamespace>${robot_namespace}</robotNamespace>
+      	<topicName>${topic_name}</topicName>
         <frameName>rplidar${id}_link</frameName>
       </plugin>
     </sensor>

@@ -10,13 +10,14 @@
 	IMU  
 -->
 <xacro:macro name="imu" params="id
+								robot_namespace
 								topic_name
 								parent_link
 								x y z roll pitch yaw
 								gaussian_noise
 								">	
 	
-<link name="imu_link${id}">	
+<link name="imu${id}_link">	
 	<visual>
 		<geometry>
 			<box size="0.02 0.02 0.02" />
@@ -27,15 +28,16 @@
 	</visual>
 </link>
 
-<joint name="imu_joint${id}" type="fixed">
+<joint name="imu${id}_joint" type="fixed">
 	<parent link="${parent_link}" />
-	<child link="imu_link${id}" />
+	<child link="imu${id}_link" />
 	<origin xyz="${x} ${y} ${z}" rpy="${roll} ${pitch} ${yaw}" />
 </joint>
 	
 <gazebo>
 	  <plugin name="imu_controller" filename="libgazebo_ros_imu.so">
-			<bodyName>imu_link${id}</bodyName>
+			<robotNamespace>${robot_namespace}</robotNamespace>
+			<bodyName>imu${id}_link</bodyName>
 			<topicName>${topic_name}</topicName>
 			<gaussianNoise>${gaussian_noise}</gaussianNoise>
 			<xyzOffsets>0 0 0</xyzOffsets>

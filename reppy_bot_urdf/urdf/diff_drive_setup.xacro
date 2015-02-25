@@ -74,6 +74,8 @@
 		<plugin name="${ros_plugin_controller_name}" filename="libgazebo_ros_diff_drive.so">
 			<robotBaseFrame>${base_frame}</robotBaseFrame>
 			
+			<robotNamespace>${robot_namespace}</robotNamespace>
+			
 			<wheelSeparation>${wheel_separation}</wheelSeparation>
 			<wheelDiameter>${wheel_diameter}</wheelDiameter>
 			<wheelTorque>${wheel_torque}</wheelTorque>

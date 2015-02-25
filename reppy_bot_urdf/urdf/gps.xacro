@@ -11,6 +11,7 @@
 -->
 <xacro:macro name="gps_receiver" 
 params= "id
+		 robot_namespace
 		 frame_id
 		 topic_name
 		 parent_link
@@ -21,7 +22,7 @@ params= "id
 		 reference_heading
 		 reference_altitude
 		">		 
-	<link name="gps_receiver_link${id}">	
+	<link name="gps${id}_receiver_link">	
 		<visual>
 			<geometry>
 				<box size="0.04 0.04 0.04" />
@@ -32,16 +33,17 @@ params= "id
 		</visual>
 	</link>
 	
-	<joint name="gps_receiver_joint${id}" type="fixed">
+	<joint name="gps${id}_receiver_joint" type="fixed">
 		<parent link="${parent_link}" />
-		<child link="gps_receiver_link${id}" />
+		<child link="gps${id}_receiver_link" />
 		<origin xyz="${x} ${y} ${z}" rpy="0 0 0" />
 	</joint>
 	
 <gazebo>
-	<plugin name="gps_controller${id}" 
+	<plugin name="gps${id}_controller" 
 		    filename="libhector_gazebo_ros_gps.so">
-		<bodyName>gps_receiver_link${id}</bodyName>
+		<robotNamespace>${robot_namespace}</robotNamespace>
+		<bodyName>gps${id}_receiver_link</bodyName>
 		<frameId>${frame_id}</frameId>
 		<topicName>${topic_name}</topicName>
 		<velocityTopicName>${velocity_topic_name}</velocityTopicName>
