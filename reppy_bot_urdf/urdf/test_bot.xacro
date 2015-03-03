@@ -28,7 +28,7 @@
 
 
 
-	
+<!--CHASSIS-->
 <link name="chassis">
 	
 	<visual>
@@ -69,39 +69,7 @@
 	<origin xyz="0 0 ${chassis_floor_clearance+chassis_height/2}" rpy="0 0 0" />
 </joint>
 
-
-
-<!--
-
- <link name="bumper0">
-	<visual>
-		<geometry>
-			<box size="0.1 0.1 0.1" />
-		</geometry>
-	</visual>
-	<collision name="bump_col">
-		<geometry>
-			<box size="0.1 0.1 0.1" />
-		</geometry>
-	</collision>
-</link>
-<joint name="chassis_bumper_joint" type="fixed">
-	<parent link="chassis" />
-	<child link="bumper0" />
-	<origin xyz="1 0 0" rpy="0 0 0" />
-</joint> 	
-
-
-<gazebo reference="bumper0">
-  <plugin name="bumper0_controller" filename="libgazebo_ros_bumper.so">
-    <alwaysOn>true</alwaysOn>
-    <updateRate>30</updateRate>
-    <bumperTopicName>/bumper0</bumperTopicName>
-    <frameName>world</frameName>
-  </plugin>
-</gazebo>
--->
-
+<!--CASTER -->
 <link name="caster_collision">
 	<visual>
 		<geometry>
@@ -165,6 +133,48 @@
 	 ros_plugin_publish_tf="1" />      	
 	
 
+	 	
+	 		
+<!-- BUMPER -->
+ 
+
+	
+	
+<link name="bumper0">
+	<visual>
+		<geometry>
+			<box size="0.1 0.1 0.1" />
+		</geometry>
+	</visual>
+	<collision name="bumper0_collision">
+		<geometry>
+			<box size="0.1 0.1 0.1" />
+		</geometry>
+	</collision>
+</link>
+
+
+<joint name="chassis_bumper_joint" type="fixed">
+	<parent link="chassis" />
+	<child link="bumper0" />
+	<origin xyz="${chassis_len/2}  ${chassis_width/2} 0" rpy="0 0 0" />
+	<axis xyz="0 1 0"/>
+</joint> 	
+
+<gazebo reference="bumper0">
+  <sensor name="bumper0_sensor" type="contact">
+    <always_on>true</always_on>
+    <update_rate>30</update_rate>
+    <contact>
+      <collision>bumper0_collision</collision>
+    </contact>
+    <plugin name="bumper0_plugin" filename="libgazebo_ros_bumper.so">
+      <bumperTopicName>bumper0_sensor_state</bumperTopicName>
+      <frameName>bumper0</frameName>
+    </plugin>
+  </sensor>
+</gazebo>
+	 	
 
 <xacro:gps_receiver  
 		id="0"
@@ -191,7 +201,13 @@
 		pitch="0"
 		yaw="0"
 		gaussian_noise="2.89e-08"
-		/>
+		imu_x="0"
+		imu_y="0"
+		imu_z="0"
+		imu_roll="0"
+		imu_pitch="0"
+		imu_yaw="0"
+		/> 
 
 <xacro:rplidar id="0"
 	 	robot_namespace="${robot_namespace}"
@@ -237,13 +253,5 @@
 		update_rate      ="30"
         />		
         	
-        	
-        	
-
-        	
-        	
-
- 	
-
 </robot>
 											
