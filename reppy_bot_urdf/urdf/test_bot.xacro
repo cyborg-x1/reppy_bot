@@ -174,7 +174,7 @@
 		image_format     ="R8G8B8"
 		clip_near        ="0.02"
 		clip_far         ="300"
-		noise_type       ="gausian"
+		noise_type       ="gaussian"
 		noise_mean       ="0.0"
 		noise_std_dev    ="0.007"
 		fov              ="0.873"
