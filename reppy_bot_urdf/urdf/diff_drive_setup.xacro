@@ -23,6 +23,7 @@
 	                 wheel_contact_stiffness
 	 				 wheel_mass
 					 wheel_width
+					 z_dist
 	                 cmd_topic
 					 odom_topic
 	                 odom_frame
@@ -43,7 +44,7 @@
 							 mass="${wheel_mass}"
 							 origin_x="${wheel_base_center_x}" 
 							 origin_y="${(wheel_separation+wheel_width)/2}" 
-							 origin_z="${wheel_diameter/2}"
+							 origin_z="${z_dist}"
 							 limit_vel="${wheel_joint_limit_vel}" 
 							 limit_effort="${wheel_joint_limit_effort}"
 							 contact_stiffness="${wheel_contact_stiffness}"
@@ -60,7 +61,7 @@
 				 mass="${wheel_mass}"
 				 origin_x="${wheel_base_center_x}" 
 				 origin_y="-${(wheel_separation+wheel_width)/2}" 
-				 origin_z="${wheel_diameter/2}"
+				 origin_z="${z_dist}"
 				 limit_vel="${wheel_joint_limit_vel}" 
 				 limit_effort="${wheel_joint_limit_effort}"
 				 contact_stiffness="${wheel_contact_stiffness}"

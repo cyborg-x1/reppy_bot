@@ -70,13 +70,7 @@
 	<material value="Gazebo/FlatBlack" />
 </gazebo>
 
-
-
-
-
-
-
-<!--CASTER 
+<!--CASTER -->
 <link name="caster_collision">
 	<visual>
 		<geometry>
@@ -103,49 +97,18 @@
              ixz="0.0"/>
     </inertial>
 </link>
--->
 
-<!--
+
 <gazebo reference="caster_collision">
 	<material value="Gazebo/FlatBlack"/>
 </gazebo>
+
 <joint name="base_caster_col_joint" type="fixed">
-	<parent link="base_link" />
+	<parent link="chassis" />
 	<child link="caster_collision" />
-	<origin xyz="${caster_collision_x} 0 ${chassis_floor_clearance}" rpy="0 0 0" />
+	<origin xyz="${caster_collision_x} 0 ${-(chassis_height/2)}" rpy="0 0 0" />
 </joint>
 
-<xacro:diff_drive_setup 
-	 base_frame="base_link"
-	 robot_namespace="${robot_namespace}"
-	 wheel_base_center_x="${wheel_base_center_x}"
-     wheel_separation ="${chassis_width}"
-     wheel_diameter="${wheel_diameter}"
-	 wheel_width="${wheel_width}"
-     wheel_torque="5"
-	 wheel_acceleration="1"
-	 wheel_joint_limit_vel="2"
-	 wheel_joint_limit_effort="2"
-	 wheel_friction1="100000"
-     wheel_friction2="1000"
-	 wheel_contact_damping="100.0"
-     wheel_contact_stiffness="1000000.0"
-	 wheel_mass="3"
-     cmd_topic="/cmd_vel"
-	 odom_topic="odom"
-     odom_frame="odom"
-	 ros_plugin_always_on="true"
-	 ros_plugin_controller_name="diff_drv0"
-     ros_plugin_update_rate="100"
-	 ros_plugin_odom_source="encoder"
-	 ros_plugin_publish_wheel_joint_state="true"
-	 ros_plugin_publish_wheel_tf="true"
-	 ros_plugin_publish_tf="1" />      	
-	-->
-	 	
-	 		
-
-	 	<!--
 
 <xacro:gps_receiver  
 		id="0"
@@ -223,6 +186,50 @@
 		dist_T2          ="0.0"
 		update_rate      ="30"
         />		
+        	
+
+
+
+<!--
+
+ DRIVE
+
+-->
+<xacro:diff_drive_setup 
+	 base_frame="chassis"
+	 robot_namespace="${robot_namespace}"
+	 wheel_base_center_x="${wheel_base_center_x}"
+     wheel_separation ="${chassis_width}"
+     wheel_diameter="${wheel_diameter}"
+	 wheel_width="${wheel_width}"
+     wheel_torque="5"
+	 wheel_acceleration="1"
+	 wheel_joint_limit_vel="2"
+	 wheel_joint_limit_effort="2"
+	 wheel_friction1="100000"
+     wheel_friction2="1000"
+	 wheel_contact_damping="100.0"
+     wheel_contact_stiffness="1000000.0"
+	 wheel_mass="3"
+	 z_dist="${-((chassis_floor_clearance+chassis_height/2)-(wheel_diameter/2))}"
+     cmd_topic="/cmd_vel"
+	 odom_topic="odom"
+     odom_frame="odom"
+	 ros_plugin_always_on="true"
+	 ros_plugin_controller_name="diff_drv0"
+     ros_plugin_update_rate="100"
+	 ros_plugin_odom_source="encoder"
+	 ros_plugin_publish_wheel_joint_state="true"
+	 ros_plugin_publish_wheel_tf="true"
+	 ros_plugin_publish_tf="1" />      	
+
+	 	
+	 		
+
+
+        	
+        	
+	 	<!--
         	-->
 </robot>
 											
