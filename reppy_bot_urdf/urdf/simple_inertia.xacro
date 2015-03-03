@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:xacro="http://ros.org/wiki/xacro"
+>
+	
+ <xacro:macro name="inertia_box" params="x y z mass *origin">
+    <inertial>
+      <mass value="${mass}" />
+      <xacro:insert_block name="origin" />
+      <inertia ixx="${(1/12) * mass * (y*y + z*z)}" ixy="0.0" ixz="0.0"
+        iyy="${(1/12) * mass * (x*x + z*z)}" iyz="0.0"
+        izz="${(1/12) * mass * (x*x + y*y)}" />
+    </inertial>
+</xacro:macro>
+
+<xacro:macro name="inertia_cylinder_solid" params="r h mass *origin">
+	<inertial>
+      <mass value="${mass}" />
+      <xacro:insert_block name="origin" />
+		    <inertia  ixx="${1/4*mass*r*r+1/12*mass+h*h}"  
+                      iyy="${1/4*mass*r*r+1/12*mass+h*h}" 
+                      izz="${1/2*mass*r*r}"
+		    		  ixy = "0" ixz = "0" iyz = "0"  />		    
+	</inertial>
+</xacro:macro>
+      
+<xacro:macro name="inertia_sphere_filled" params="r mass *origin">
+    <inertial>
+      <mass value="${mass}" />
+      <xacro:insert_block name="origin" />
+      <inertia ixx="${(2/5) * mass * r * r}" ixy="0.0" ixz="0.0"
+        iyy="${(2/5) * mass * r * r}" iyz="0.0"
+        izz="${(2/5) * mass * r * r}" />
+    </inertial>
+</xacro:macro>
+
+ <xacro:macro name="inertia_sphere_shell" params="r r_i mass *origin">
+    <inertial>
+      <mass value="${mass}" />
+      <xacro:insert_block name="origin" />
+      <inertia ixx="${(2/5) * mass * (r*r*r*r*r - r_i*r_i*r_i*r_i*r_i)/(r*r*r - r_i*r_i*r_i)}" ixy="0.0" ixz="0.0"
+        iyy="${(2/5) * mass * (r*r*r*r*r - r_i*r_i*r_i*r_i*r_i)/(r*r*r - r_i*r_i*r_i)}" iyz="0.0"
+        izz="${(2/5) * mass * (r*r*r*r*r - r_i*r_i*r_i*r_i*r_i)/(r*r*r - r_i*r_i*r_i)}" />
+    </inertial>
+</xacro:macro>
+
+</robot>

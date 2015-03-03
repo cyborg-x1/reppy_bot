@@ -6,6 +6,7 @@
        xmlns:xacro="http://ros.org/wiki/xacro" name="reppy_bot">
 	
 <xacro:include filename="$(find reppy_bot_urdf)/urdf/consts.xacro"			/>
+<xacro:include filename="$(find reppy_bot_urdf)/urdf/simple_inertia.xacro"  /> 
 <xacro:include filename="$(find reppy_bot_urdf)/urdf/diff_drive_setup.xacro"/>
 <xacro:include filename="$(find reppy_bot_urdf)/urdf/gps.xacro"				/> 	
 <xacro:include filename="$(find reppy_bot_urdf)/urdf/imu.xacro"				/> 
