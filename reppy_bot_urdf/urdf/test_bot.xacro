@@ -52,7 +52,7 @@
 	<material value="Gazebo/Green"/>
 </gazebo>
 
-
+<!-- Bumper -->
 <xacro:bumper name="bumper0" parent="chassis" always_on="true" update_rate="30" topic="bumper0"  has_inertia="true">
 	<origin xyz="${chassis_len/2} ${chassis_width/2} 0" rpy="0 0 0" />
 	
@@ -102,7 +102,7 @@
       <origin xyz="0 0 0" rpy="0 0 0" />
     </xacro:inertia_box>
 </xacro:bumper>	
-<gazebo reference="bumper2">
+<gazebo reference="bumper2"> 
 	<material value="Gazebo/FlatBlack" />
 </gazebo>
 
@@ -135,12 +135,9 @@
              ixz="0.0"/>
     </inertial>
 </link>
-
-
 <gazebo reference="caster_collision">
 	<material value="Gazebo/FlatBlack"/>
 </gazebo>
-
 <joint name="base_caster_col_joint" type="fixed">
 	<parent link="chassis" />
 	<child link="caster_collision" />
@@ -148,91 +145,8 @@
 </joint>
 
 
-<xacro:gps_receiver  
-		id="0"
-	 	robot_namespace="${robot_namespace}"
-		parent_link="chassis"
-		x="0" y="0" z="0"
-		frame_id="world"
-		topic_name="/fix"
-		velocity_topic_name="/fix_vel"
-		reference_latitude="49"
-		reference_longitude="8"
-		reference_heading="0"
-		reference_altitude="0"/>
 
-<xacro:imu 	
-		id="0"
-	 	robot_namespace=""
-		topic_name="/imu"
-		parent_link="chassis"
-		x="${wheel_base_center_x}"
-		y="0"
-		z="0"
-		roll="0"
-		pitch="0"
-		yaw="0"
-		gaussian_noise="2.89e-08"
-		imu_x="0"
-		imu_y="0"
-		imu_z="0"
-		imu_roll="0"
-		imu_pitch="0"
-		imu_yaw="0"
-		/> 
-
-<xacro:rplidar id="0"
-	 	robot_namespace="${robot_namespace}"
-		topic_name="/laser/scan"
-		frame_name="laser"
-		parent_link="chassis"
-		x="0" 
-        y="0" 
-        z="${chassis_height/2}"
-	    roll="0" 
-	    pitch="0" 
-        yaw="0" 
-		update_rate="5.5"
-		visualize="false" />	
-
-<xacro:cam
-		id               ="0"
-	 	robot_namespace  ="${robot_namespace}"
-		parent_link      ="chassis"  
-		x                ="${chassis_len/2}" 
-	    y                ="0" 
-        z                ="0" 
-        roll             ="0" 
-        pitch            ="-0.01" 
-        yaw              ="0"
-		always_on        ="true"
-		frame_name       ="camera0"
-		image_width      ="640"
-		image_height     ="480"
-		image_format     ="R8G8B8"
-		clip_near        ="0.02"
-		clip_far         ="300"
-		noise_type       ="gaussian"
-		noise_mean       ="0.0"
-		noise_std_dev    ="0.007"
-		fov              ="0.873"
-		hack_baseline    ="0.07"
-		dist_K1          ="0.0"
-		dist_K2          ="0.0"
-		dist_K3          ="0.0"
-		dist_T1          ="0.0"
-		dist_T2          ="0.0"
-		update_rate      ="30"
-        />		
-        	
-
-
-
-<!--
-
- DRIVE
-
--->
+<!-- Drive -->
 <xacro:diff_drive_setup 
 	 base_frame="chassis"
 	 robot_namespace="${robot_namespace}"
@@ -261,13 +175,86 @@
 	 ros_plugin_publish_wheel_tf="true"
 	 ros_plugin_publish_tf="1" />      	
 
-	 	
-	 		
+<!-- GPS -->
+<xacro:gps_receiver  
+		id="0"
+	 	robot_namespace="${robot_namespace}"
+		parent_link="chassis"
+		x="0" y="0" z="0"
+		frame_id="world"
+		topic_name="/fix"
+		velocity_topic_name="/fix_vel"
+		reference_latitude="49"
+		reference_longitude="8"
+		reference_heading="0"
+		reference_altitude="0"/>
 
+<!-- IMU -->
+<xacro:imu 	
+		id="0"
+	 	robot_namespace=""
+		topic_name="/imu"
+		parent_link="chassis"
+		x="${wheel_base_center_x}"
+		y="0"
+		z="0"
+		roll="0"
+		pitch="0"
+		yaw="0"
+		gaussian_noise="2.89e-08"
+		imu_x="0"
+		imu_y="0"
+		imu_z="0"
+		imu_roll="0"
+		imu_pitch="0"
+		imu_yaw="0"
+		/> 
 
-        	
-        	
-	 	<!--
-        	-->
+<!-- LIDAR -->
+<xacro:rplidar id="0"
+	 	robot_namespace="${robot_namespace}"
+		topic_name="/laser/scan"
+		frame_name="laser"
+		parent_link="chassis"
+		x="0" 
+        y="0" 
+        z="${chassis_height/2}"
+	    roll="0" 
+	    pitch="0" 
+        yaw="0" 
+		update_rate="5.5"
+		visualize="false" />	
+
+<!-- CAMERA -->
+<xacro:cam
+		id               ="0"
+	 	robot_namespace  ="${robot_namespace}"
+		parent_link      ="chassis"  
+		x                ="${chassis_len/2}" 
+	    y                ="0" 
+        z                ="0" 
+        roll             ="0" 
+        pitch            ="-0.01" 
+        yaw              ="0"
+		always_on        ="true"
+		frame_name       ="camera0"
+		image_width      ="640"
+		image_height     ="480"
+		image_format     ="R8G8B8"
+		clip_near        ="0.02"
+		clip_far         ="300"
+		noise_type       ="gaussian"
+		noise_mean       ="0.0"
+		noise_std_dev    ="0.007"
+		fov              ="0.873"
+		hack_baseline    ="0.07"
+		dist_K1          ="0.0"
+		dist_K2          ="0.0"
+		dist_K3          ="0.0"
+		dist_T1          ="0.0"
+		dist_T2          ="0.0"
+		update_rate      ="30" 
+        />		
+
 </robot>
 											
