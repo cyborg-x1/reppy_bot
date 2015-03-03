@@ -9,7 +9,7 @@
   	</node>
 	<!--<node pkg="reppy_bot_urdf" type="publisher_urdf" name="reppy_bot_publisher" output="screen">
 	</node>-->
-    <node name="spawn_reppy_bot" pkg="gazebo_ros" type="spawn_model" args="-z 0.1 -urdf -param robot_description -model robot_description" respawn="false" output="screen" />
+    <node name="spawn_reppy_bot" pkg="gazebo_ros" type="spawn_model" args="-z 0.1 -urdf -param robot_description -model robot_description" respawn="false" />
   	
 			<node pkg="rviz" type="rviz" name="rviz" />
 				
