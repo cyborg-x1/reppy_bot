@@ -4,7 +4,7 @@
  *  Created on: Jan 11, 2015
  *      Author: Christian Holl
  */
-#include "../../../../../reppy_bot/src_mcu/reppy_bot_app/src/adc/adc.h"
+#include "adc.h"
 
 
 void adc_multiplexer(uint8_t mux)

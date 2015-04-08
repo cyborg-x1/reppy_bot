@@ -17,9 +17,10 @@
 
 
 
-#include "../../../../../reppy_bot/src_mcu/reppy_bot_app/src/uart/uart.h"
+#include "uart.h"
 
 #include <sersyncproto.h>
+#include "../pwm/pwm.h"
 
 
 void uart_sendByte(uint8_t byte)
@@ -49,32 +50,36 @@ void uart_init(void)
 
 ISR(USART_RX_vect)
 {
-	static const uint8_t cmds[]=AVR_CMD_ARRAY_INIT;
-	static const uint8_t payload_len[]=AVR_PAYLOAD_LEN_ARRAY_INIT;
+	static const uint8_t cmds[]=CMD_ARRAY_INIT;
+	static const uint8_t payload_len[]=PAYLOAD_LEN_ARRAY_INIT;
 	static const uint8_t header[]=HEADER_ARRAY_INIT;
-	static uint8_t payload_buffer[2];
-	INIT_SERSYNCPROTO_DATA(data,cmds,payload_len,header,payload_buffer);
-
-
+	static payload_t payload_buffer;
+	INIT_SERSYNCPROTO_DATA(data, cmds, payload_len, header, &payload_buffer);
 	uint8_t cur_byte=UDR0;
 	if(sersyncproto_rec(&data,cur_byte))
 	{
 		switch (SERSYNCPROTO_GET_CUR_CMD(data))
 		{
-			case REPPY_AVR_GET_ADC0:
-			case REPPY_AVR_GET_ADC1:
-			case REPPY_AVR_GET_ADC2:
-			case REPPY_AVR_GET_ADC3:
-			case REPPY_AVR_GET_ADC4:
-			case REPPY_AVR_GET_ADC5:
-			case REPPY_AVR_GET_ADC6:
-			case REPPY_AVR_GET_ADC7:
+			case CAM_TRANSMIT_TILT:
 			{
-				uint8_t adc_no=SERSYNCPROTO_GET_CUR_CMD(data)-REPPY_AVR_GET_ADC0;
-				uint16_t adcval=(global.adc_channel_value[adc_no]);
-				sersyncproto_send(&data, REPPY_ROS_REC_ADC0+adc_no,  (uint8_t*)((void *)(&(adcval))), uart_sendByte);//TODO remove just for testing
+				if(payload_buffer.cam_tilt>=0||payload_buffer.cam_tilt<=180)
+				servo0(payload_buffer.cam_tilt);
 			}
-				break;
+			break;
+
+			case CAM_TRANSMIT_PAN:
+			{
+				if(payload_buffer.cam_pan>=0||payload_buffer.cam_pan<=180)
+				servo1(payload_buffer.cam_pan);
+			}
+			break;
+
+			case CAM_RESET:
+			{
+				servo0(90);
+				servo1(90);
+			}
+			break;
 			default:
 				break;
 		}

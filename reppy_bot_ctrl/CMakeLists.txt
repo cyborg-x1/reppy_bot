@@ -119,8 +119,13 @@ include_directories(
 # )
 
 
+add_definitions(-std=c99)
 
-add_executable(reppy_bot_node src/reppy_bot.cpp)
+add_executable(reppy_bot_node 
+			   SerSyncProto/sersyncproto.c
+			   src/reppy_bot.cpp )
+
+
 target_link_libraries(reppy_bot_node ${catkin_LIBRARIES})
 #add_dependencies(reppy_bot_node beginner_tutorials_generate_messages_cpp)
 

@@ -11,4 +11,8 @@
 #include "../config/config.h"
 
 
+void pwm_init();
+void servo0(uint8_t pwm_value);
+void servo1(uint8_t pwm_value);
+
 #endif /* PWM_H_ */

@@ -8,11 +8,10 @@
 #ifndef INIT_H_
 #define INIT_H_
 
-#include "../../../../../reppy_bot/src_mcu/reppy_bot_app/src/adc/adc.h"
-#include "../../../../../reppy_bot/src_mcu/reppy_bot_app/src/pwm/pwm.h"
-#include "../../../../../reppy_bot/src_mcu/reppy_bot_app/src/uart/uart.h"
-#include "../../../../../reppy_bot_ctrl/src_mcu/reppy_bot_app/src/config/config.h"
-
+#include "../adc/adc.h"
+#include "../pwm/pwm.h"
+#include "../uart/uart.h"
+#include "../config/config.h"
 
 /**
  * Initialize System functions

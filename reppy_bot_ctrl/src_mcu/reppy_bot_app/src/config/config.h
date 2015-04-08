@@ -15,7 +15,14 @@
 #include <avr/interrupt.h>
 #include <inttypes.h>
 
+
+#define servo_max 640
+#define servo_min 175
+
 #include <protocol_definition.h>
-#include "../../../../../reppy_bot/src_mcu/reppy_bot_app/src/globals/globals.h"
+#include "../globals/globals.h"
+
+
+
 
 #endif /* CONFIG_H_ */

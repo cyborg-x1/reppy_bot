@@ -177,7 +177,7 @@
 
 <!-- GPS -->
 <xacro:gps_receiver  
-		id="0"
+		name="gps0"
 	 	robot_namespace="${robot_namespace}"
 		parent_link="chassis"
 		x="0" y="0" z="0"
@@ -191,7 +191,7 @@
 
 <!-- IMU -->
 <xacro:imu 	
-		id="0"
+		name="imu0"
 	 	robot_namespace=""
 		topic_name="/imu"
 		parent_link="chassis"
@@ -227,7 +227,7 @@
 
 <!-- CAMERA -->
 <xacro:cam
-		id               ="0"
+		name             ="cam0"
 	 	robot_namespace  ="${robot_namespace}"
 		parent_link      ="chassis"  
 		x                ="${chassis_len/2}" 
